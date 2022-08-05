@@ -12,9 +12,23 @@ spec:
       labels:
         app: web
     spec:
-        containers:
-            - name: web
-              image: fabricioveronez/web-page:blue
-              ports:
-                  - containerPort: 80
+      containers:
+        - name: web
+          image: fabricioveronez/web-page:blue
+          ports:
+            - containerPort: 80
 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: web
+  ports:
+    - protocol: TCP
+      port: 80
+      nodePort: 30000 
+  type: NodePort
